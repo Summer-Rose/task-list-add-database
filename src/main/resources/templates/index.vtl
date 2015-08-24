@@ -11,18 +11,14 @@
 
 <hr>
 
-<table>
-  <tr>
+<div>
   #foreach ($category in $categories)
-    <td>
-    <form action="/tasks/$category.getId()" action="post">
+    <form action="/tasks/$category.getId()" action="post" id="buttons">
       <input type="hidden" name="categoryId" value="$category.getId">
-      <button type="submit" class="btn btn-warning btn-block">$category.getName()</button>
+      <button type="submit" class="btn btn-warning">$category.getName()</button>
   </form>
   #end
-    </td>
-  </tr>
-</table>
+</div>
 
 
 

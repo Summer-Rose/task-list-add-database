@@ -29,7 +29,7 @@ public class App {
         return new ModelAndView(model, layout);
       }, new VelocityTemplateEngine());
 
-      post("/tasks", (request, response) -> {
+      post("/tasks/:id", (request, response) -> {
         HashMap<String, Object> model = new HashMap<String, Object>();
         //fetch info from db
 
