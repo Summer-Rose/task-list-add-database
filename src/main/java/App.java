@@ -4,6 +4,7 @@ import java.util.HashMap;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 import static spark.Spark.*;
+import java.util.List;
 
 
 public class App {
@@ -17,13 +18,23 @@ public class App {
         return new ModelAndView(model, layout);
       }, new VelocityTemplateEngine());
 
-      post("/to-do-list", (request, response) -> {
+      get("/to-do-list", (request, response) -> {
         HashMap<String, Object> model = new HashMap<String, Object>();
-
-
+        //save info from form entry
+        String categoryName = request.queryParams("category");
+        Category newCategory = new Category(categoryName);
+        newCategory.save();
+        model.put("categories", Category.all());
         model.put("template", "templates/index.vtl");
         return new ModelAndView(model, layout);
       }, new VelocityTemplateEngine());
 
+      post("/tasks", (request, response) -> {
+        HashMap<String, Object> model = new HashMap<String, Object>();
+        //fetch info from db
+
+        model.put("template", "templates/index.vtl");
+        return new ModelAndView(model, layout);
+      }, new VelocityTemplateEngine());
     }
 }

@@ -1,22 +1,30 @@
 <h2 class="well">To Do List</h2>
 
-<form action="/to-do-list" method="post">
+<form action="/to-do-list" method="get">
   <div class="form-group">
-    <label for="task">Task to add:</label>
-    <input name="task" id="task" type="text">
+    <label for="category">Create Category:</label>
+    <input name="category" id="category" type="text">
   </div>
-  <select name="category">
-    <option value="Household">Household</option>
-    <option value="Yard Work">Yard Word</option>
-    <option value="Homework">Homework</option>
-    <option value="Errands">Errands</option>
-    <option value="Self Care">Self Care</option>
-  </select>
-  <button type="submit" class="btn btn-info">Add New Task</button>
+  <button type="submit" class="btn btn-info">Add Category</button>
   </div>
 </form>
 
 <hr>
+
+<table>
+  <tr>
+  #foreach ($category in $categories)
+    <td>
+    <form action="/tasks/$category.getId()" action="post">
+      <input type="hidden" name="categoryId" value="$category.getId">
+      <button type="submit" class="btn btn-warning btn-block">$category.getName()</button>
+  </form>
+  #end
+    </td>
+  </tr>
+</table>
+
+
 
 <table class="table table-striped">
 
