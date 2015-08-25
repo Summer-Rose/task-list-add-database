@@ -1,11 +1,10 @@
 <h2 class="well">To Do List</h2>
 
 <form action="/to-do-list" method="get">
-  <div class="form-group">
+  <div class="form-group add_category_buttons" id="">
     <label for="category">Create Category:</label>
     <input name="category" id="category" type="text">
-  </div>
-  <button type="submit" class="btn btn-info">Add Category</button>
+    <button type="submit" class="btn btn-info">Add Category</button>
   </div>
 </form>
 
@@ -16,7 +15,7 @@
   #foreach ($category in $categories)
     <form action="/tasks/$category.getId()" action="get" id="buttons" style="display:inline;">
       <input type="hidden" name="categoryId" value="$category.getId()">
-      <button type="submit" class="btn btn-warning">$category.getName()</button>
+      <button type="submit" class="btn btn-warning button-style">$category.getName()</button>
   </form>
   #end
 </div>
