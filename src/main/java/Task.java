@@ -36,7 +36,7 @@ public class Task {
   }
 
   public static List<Task> all() {
-    String sql = "SELECT id, description, categoryId FROM tasks";
+    String sql = "SELECT id, description, categoryid FROM tasks";
     try (Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Task.class);
     }
@@ -44,10 +44,10 @@ public class Task {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO tasks (description, categoryId) VALUES (:description, :categoryId)";
+      String sql = "INSERT INTO tasks (description, categoryid) VALUES (:description, :categoryid)";
       this.id = (int) con.createQuery(sql, true)
       .addParameter("description", this.description)
-      .addParameter("categoryId", this.categoryId)
+      .addParameter("categoryid", this.categoryId)
       .executeUpdate()
       .getKey();
     }

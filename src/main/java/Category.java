@@ -54,18 +54,9 @@ public class Category {
     }
   }
 
-  //create new class to get all categories from db
-  public static List<Category> getCategories() {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT name FROM categories";
-      return con.createQuery(sql)
-      .executeAndFetch(Category.class);
-    }
-  }
-
   public List<Task> getTasks() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM tasks WHERE categoryId=:id";
+      String sql = "SELECT * FROM tasks WHERE categoryid=:id";
       return con.createQuery(sql)
       .addParameter("id", this.id)
       .executeAndFetch(Task.class);

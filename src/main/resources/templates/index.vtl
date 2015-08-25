@@ -27,13 +27,24 @@
 <h4 class="well">Tasks in $category.getName() Category</h4>
 <table class="table table-striped">
 
+#if ($descriptions)
+  #foreach ($description in $descriptions)
+    <tr>
+      <td>
+        $task.getDescription()
+      </td>
+      <td>test</td>
+    </tr>
+  #end
+#end
 </table>
 <hr/>
-<form action="/">
+<form action="/tasklist/:id" method="get">
   <div class="form-group">
-    <label for="task">Add a task to $category.getName()</label>
-    <input name="task" id="task" type="text">
+    <input type="hidden" id="descriptionId" name="descriptionId" value="$task.getId()">
+    <label for="description">Add a task to $category.getName():</label>
+    <input name="description" id="description" type="text">
     <button type="submit" class="btn btn-info">Add</button>
+  </div>
 </form>
 #end
-</div>
