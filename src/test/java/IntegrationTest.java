@@ -61,11 +61,9 @@ public class IntegrationTest extends FluentTest {
     testCategory.save();
     Task testTask = new Task("Watch video", testCategory.getId());
     testTask.save();
-    testTask.editTask(testTask.getId(), "Watch Treehouse");
-    String categoryPath = String.format("http://localhost:4567/category/%d/edit/%d?description=%s", testCategory.getId(), testTask.getId(), testTask.getDescription());
+    String categoryPath = String.format("http://localhost:4567/category/%d/edit/%d?description=%s", testCategory.getId(), testTask.getId(), "Watch Treehouse");
     goTo(categoryPath);
     assertThat(pageSource()).contains("Watch Treehouse");
-
   }
 
 

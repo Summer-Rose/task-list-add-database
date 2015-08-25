@@ -32,10 +32,10 @@ public class App {
 
       get("/tasks/:id", (request, response) -> {
         HashMap<String, Object> model = new HashMap<String, Object>();
-        //fetch info from db
         String description = request.queryParams("description");
         int categoryId = Integer.parseInt(request.queryParams("categoryId"));
         Task newTask = new Task(description, categoryId);
+
         if (description != null){
           newTask.save();
         }
@@ -49,15 +49,9 @@ public class App {
 
       get("/categories/:category_id/delete/:id", (request, response) -> {
         HashMap<String, Object> model = new HashMap<String, Object>();
-
         int taskId = Integer.parseInt(request.params(":id"));
         Task.removeTaskById(taskId);
-
         Integer categoryId = Integer.parseInt(request.params(":category_id"));
-        System.out.println(categoryId);
-
-        //tasks not appearing when task is deleted on delete page
-        //model.put("category", categoryId);
         model.put("categories", Category.all()); //buttons
         model.put("category", Category.find(categoryId));
         model.put("tasks", Task.getTasksByCategoryId(categoryId));
@@ -70,9 +64,6 @@ public class App {
 
         int categoryid = Integer.parseInt(request.params(":categoryid"));
         Category.removeCategory(categoryid);
-
-        //tasks not appearing when task is deleted on delete page
-        //model.put("category", categoryId);
         model.put("categories", Category.all()); //buttons
         model.put("category", Category.find(categoryid));
         model.put("tasks", Task.getTasksByCategoryId(categoryid));
@@ -82,15 +73,9 @@ public class App {
 
       get("/edit/:category_id/:description/:id", (request, response) -> {
         HashMap<String, Object> model = new HashMap<String, Object>();
-
-        //Task.find()
-
         Integer categoryid = Integer.parseInt(request.params(":category_id"));
-        //String description = request.params(":description");
         Task editTask = Task.find(Integer.parseInt(request.params(":id")));
-
         model.put("editTask", editTask);
-        //model.put("task", Task.find(editTask.getId()));
         model.put("category", Category.find(categoryid));
         model.put("tasks", Task.getTasksByCategoryId(categoryid));
         model.put("categories", Category.all()); //buttons
