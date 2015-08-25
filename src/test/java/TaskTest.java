@@ -52,4 +52,14 @@ public class TaskTest {
     assertEquals(savedTask.getCategoryId(), myCategory.getId());
   }
 
+  @Test
+  public void remove_removesTaskById_true() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task myTask = new Task("feed fish", myCategory.getId());
+    myTask.save();
+    Task.removeTaskById(myTask.getId());
+    assertTrue(Task.all().size() == 0);
+  }
+
 }

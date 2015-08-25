@@ -32,7 +32,9 @@
 
         #foreach ($task in $tasks)
         <tr>
-          <td>$task.getDescription()</td>
+          <td>
+            <a href="/categories/$category.getId()/delete/$task.getId()">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>&nbsp;$task.getDescription()</td>
         </tr>
         #end
   #end

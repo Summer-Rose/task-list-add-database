@@ -46,5 +46,23 @@ public class App {
         model.put("template", "templates/index.vtl");
         return new ModelAndView(model, layout);
       }, new VelocityTemplateEngine());
+
+      get("/categories/:category_id/delete/:id", (request, response) -> {
+        HashMap<String, Object> model = new HashMap<String, Object>();
+
+        int taskId = Integer.parseInt(request.params(":id"));
+        Task.removeTaskById(taskId);
+
+        Integer categoryId = Integer.parseInt(request.params(":category_id"));
+        System.out.println(categoryId);
+
+        //tasks not appearing when task is deleted on delete page
+        //model.put("category", categoryId);
+        model.put("categories", Category.all()); //buttons
+        model.put("category", Category.find(categoryId));
+        model.put("tasks", Task.getTasksByCategoryId(categoryId));
+        model.put("template", "templates/index.vtl");
+        return new ModelAndView(model, layout);
+      }, new VelocityTemplateEngine());
     }
 }
