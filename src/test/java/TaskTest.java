@@ -62,4 +62,15 @@ public class TaskTest {
     assertTrue(Task.all().size() == 0);
   }
 
+  @Test
+  public void edit_newTaskDescription() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task myTask = new Task("feed fish", myCategory.getId());
+    myTask.save();
+    Task editTask = new Task("feed cat", myCategory.getId());
+    myTask.editTask(editTask.getId(), editTask.getDescription());
+    assertTrue(editTask.getDescription() == "feed cat");
+  }
+
 }

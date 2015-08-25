@@ -79,5 +79,36 @@ public class App {
         model.put("template", "templates/index.vtl");
         return new ModelAndView(model, layout);
       }, new VelocityTemplateEngine());
+
+      get("/edit/:category_id/:description/:id", (request, response) -> {
+        HashMap<String, Object> model = new HashMap<String, Object>();
+
+        //Task.find()
+
+        Integer categoryid = Integer.parseInt(request.params(":category_id"));
+        //String description = request.params(":description");
+        Task editTask = Task.find(Integer.parseInt(request.params(":id")));
+
+        model.put("editTask", editTask);
+        //model.put("task", Task.find(editTask.getId()));
+        model.put("category", Category.find(categoryid));
+        model.put("tasks", Task.getTasksByCategoryId(categoryid));
+        model.put("categories", Category.all()); //buttons
+        model.put("template", "templates/index.vtl");
+        return new ModelAndView(model, layout);
+      }, new VelocityTemplateEngine());
+
+      get("/category/:category_id/edit/:id", (request, response) -> {
+        HashMap<String, Object> model = new HashMap<String, Object>();
+        Integer categoryid = Integer.parseInt(request.params(":category_id"));
+        String description = request.queryParams("description");
+        Integer taskId = Integer.parseInt(request.params(":id"));
+        Task.editTask(taskId, description);
+        model.put("category", Category.find(categoryid));
+        model.put("tasks", Task.getTasksByCategoryId(categoryid));
+        model.put("categories", Category.all()); //buttons
+        model.put("template", "templates/index.vtl");
+        return new ModelAndView(model, layout);
+      }, new VelocityTemplateEngine());
     }
 }
