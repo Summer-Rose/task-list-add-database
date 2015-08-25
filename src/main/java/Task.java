@@ -42,6 +42,13 @@ public class Task {
     }
   }
 
+  public static List<Task> getTasksByCategoryId(int categoryId) {
+    String sql = "SELECT * FROM tasks WHERE categoryid=" + categoryId;
+    try (Connection con = DB.sql2o.open()) {
+      return con.createQuery(sql).executeAndFetch(Task.class);
+    }
+  }
+
   public void save() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO tasks (description, categoryid) VALUES (:description, :categoryid)";

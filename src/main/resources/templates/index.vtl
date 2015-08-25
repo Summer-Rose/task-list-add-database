@@ -12,6 +12,7 @@
 <hr>
 
 <div class="container">
+    <p>Click on a category below to add/view tasks:</p>
   #foreach ($category in $categories)
     <form action="/tasks/$category.getId()" action="get" id="buttons" style="display:inline;">
       <input type="hidden" name="categoryId" value="$category.getId()">
@@ -26,9 +27,20 @@
 #if ($category.getId())
 <h4 class="well">Tasks in $category.getName() Category</h4>
 <hr/>
-<form action="/tasklist/:id" method="get">
+<table class="table table-striped">
+  #if ($tasks)
+
+        #foreach ($task in $tasks)
+        <tr>
+          <td>$task.getDescription()</td>
+        </tr>
+        #end
+  #end
+</table>
+
+<form action="/tasks/$category.getId()" method="get">
   <div class="form-group">
-    <input type="hidden" id="descriptionId" name="descriptionId" value="$task.getId()">
+    <input type="hidden" id="categoryId" name="categoryId" value="$category.getId()">
     <label for="description">Add a task to $category.getName():</label>
     <input name="description" id="description" type="text">
     <button type="submit" class="btn btn-info">Add</button>
