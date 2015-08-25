@@ -44,6 +44,19 @@ public class Category {
     }
   }
 
+  public static void removeCategory(int categoryid) {
+    try (Connection con = DB.sql2o.open()) {
+      String deleteTasks = "DELETE FROM tasks WHERE categoryid = :categoryid;";
+      con.createQuery(deleteTasks) //grab all tasks in specified category
+        .addParameter("categoryid", categoryid)
+        .executeUpdate();
+      String deleteCategory = "DELETE FROM categories WHERE id = :categoryid;";
+      con.createQuery(deleteCategory)
+        .addParameter("categoryid", categoryid)
+        .executeUpdate();
+    }
+  }
+
   public static Category find(int id) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT * FROM categories where id=:id";

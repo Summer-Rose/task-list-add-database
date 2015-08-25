@@ -24,7 +24,8 @@
 
 <div class="container">
 #if ($category.getId())
-<h4 class="well">Tasks in $category.getName() Category</h4>
+<h4 class="well">Tasks in $category.getName() Category<a href="/delete/$category.getId()">
+  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></h4>
 <hr/>
 <table class="table table-striped">
   #if ($tasks)
