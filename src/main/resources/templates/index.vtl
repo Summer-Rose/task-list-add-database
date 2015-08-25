@@ -45,12 +45,11 @@
 </table>
 
 #if ($editTask)
-<form action="/category/$category.getId()/edit/$task.getId()" method="get">
+<form action="/category/$category.getId()/edit/$editTask.getId()" method="get">
   <div class="form-group">
-    <input type="hidden" id="taskId" name="taskId" value="$task.getId()">
     <label for="description">Edit Task:</label>
     <input name="description" id="description" type="text" value="$editTask.getDescription()">
-    <button type="submit" class="btn btn-info">Add</button>
+    <button type="submit" id="edit-button" class="btn btn-info">Edit</button>
   </div>
 </form>
 #else
