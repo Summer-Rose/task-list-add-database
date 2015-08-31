@@ -1,6 +1,9 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.junit.Rule;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 
 public class TaskTest {
 
@@ -42,6 +45,38 @@ public class TaskTest {
     assertTrue(myTask.equals(savedTask));
   }
 
+  @Test
+  public void addCategory_addsCategoryToTask() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task myTask = new Task("Mow the lawn");
+    myTask.save();
+    myTask.addCategory(myCategory);
+    Category savedCategory = myTask.getCategories().get(0);
+    assertTrue(myCategory.equals(savedCategory));
+  }
+
+  @Test
+  public void getCategories_returnAllCategories_ArrayList() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task myTask = new Task("Mow the lawn");
+    myTask.save();
+    myTask.addCategory(myCategory);
+    List savedCategories = myTask.getCategories();
+    assertEquals(savedCategories.size(), 1);
+  }
+
+  @Test
+  public void delete_deletesAllTasksAndListAssociations() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task myTask = new Task("Mow the lawn");
+    myTask.save();
+    myTask.addCategory(myCategory);
+    myTask.delete();
+    assertEquals(myCategory.getTasks().size(), 0);
+  }
   // @Test
   // public void save_savesCategoryIdIntoDB_true() {
   //   Category myCategory = new Category("Household chores");
